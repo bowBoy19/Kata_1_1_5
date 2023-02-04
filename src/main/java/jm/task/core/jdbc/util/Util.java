@@ -26,6 +26,7 @@ public class Util {
         return connection;
     }
 
+    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         Configuration configuration = new Configuration();
         Properties settings = new Properties();
@@ -44,7 +45,7 @@ public class Util {
 //        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 //                .applySettings(configuration.getProperties()).build();
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        sessionFactory = configuration.buildSessionFactory();
         return sessionFactory;
     }
 }

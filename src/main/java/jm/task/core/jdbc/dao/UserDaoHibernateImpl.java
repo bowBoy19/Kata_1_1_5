@@ -30,7 +30,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45),lastname VARCHAR(45),age TINYINT)")
+            session.createSQLQuery("CREATE TABLE if not exists users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45),lastname VARCHAR(45),age TINYINT)")
                     .executeUpdate();
             session.getTransaction().commit();
         } catch (PersistenceException e) {
@@ -46,7 +46,7 @@ public class UserDaoHibernateImpl implements UserDao {
         try {
             Session session = getSessionFactory().openSession();
             session.beginTransaction();
-            session.createSQLQuery("DROP TABLE users").executeUpdate();
+            session.createSQLQuery("DROP TABLE if exists users").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
 
