@@ -28,24 +28,23 @@ public class Util {
 
     private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration();
-        Properties settings = new Properties();
+        if (sessionFactory == null) {
+            Configuration configuration = new Configuration();
+            Properties settings = new Properties();
 
-        settings.put(Environment.URL, URL);
-        settings.put(Environment.USER, NAME);
-        settings.put(Environment.PASS, PASS);
+            settings.put(Environment.URL, URL);
+            settings.put(Environment.USER, NAME);
+            settings.put(Environment.PASS, PASS);
 
-        settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
-        settings.put(Environment.SHOW_SQL, "true");
-        settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+            settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
+            settings.put(Environment.SHOW_SQL, "true");
+            settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-        configuration.setProperties(settings);
-        configuration.addAnnotatedClass(User.class);
+            configuration.setProperties(settings);
+            configuration.addAnnotatedClass(User.class);
 
-//        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-//                .applySettings(configuration.getProperties()).build();
-
-        sessionFactory = configuration.buildSessionFactory();
+            sessionFactory = configuration.buildSessionFactory();
+        }
         return sessionFactory;
     }
 }
